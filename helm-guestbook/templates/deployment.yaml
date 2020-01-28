@@ -36,6 +36,10 @@ spec:
             httpGet:
               path: /
               port: http
+          volumeMounts:
+            - mountPath: /etc/apache2/ports.conf
+              name: {{ template "helm-guestbook.fullname" . }}
+              subPath: ports.conf
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
@@ -50,3 +54,8 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }}
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: {{ template "helm-guestbook.fullname" . }}
+          name: {{ template "helm-guestbook.fullname" . }}
