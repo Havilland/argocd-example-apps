@@ -40,6 +40,9 @@ spec:
             - mountPath: /etc/apache2/ports.conf
               name: {{ template "helm-guestbook.fullname" . }}
               subPath: ports.conf
+            - mountPath: /etc/apache2/envvars
+              name: {{ template "helm-guestbook.fullname" . }}
+              subPath: envvars
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
